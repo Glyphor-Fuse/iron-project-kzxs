@@ -23,20 +23,7 @@ const Marquee = () => (
 const VideoTeaser = () => (
   <section className="h-[60vh] md:h-[80vh] w-full relative group overflow-hidden bg-black">
     <img 
-      src="<div className="relative">
-  <img 
-    src="https://images.pexels.com/photos/3892895/pexels-photo-3892895.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" 
-    alt="A lively crowd gathers at a football stadium during an outdoor event, showcasing spectator excitement."
-    width="6960"
-    height="4640"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
-    <a href="https://www.pexels.com/photo/people-on-a-stadium-3892895/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
-      Photo by Luis Quintero on Pexels
-    </a>
-  </div>
-</div>" 
+      src="https://images.pexels.com/photos/3892895/pexels-photo-3892895.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" 
       alt="Crowd" 
       className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-1000"
     />

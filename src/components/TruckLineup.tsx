@@ -1,62 +1,10 @@
 import { motion } from 'framer-motion';
 
 const trucks = [
-  { name: "Bone Crusher", stats: "1500 HP", img: "<div className="relative">
-  <img 
-    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
-    alt="A thrilling monster truck event with vibrant energy and roaring audience."
-    width="2148"
-    height="3007"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
-    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
-      Photo by James Mirakian on Pexels
-    </a>
-  </div>
-</div>" },
-  { name: "Grave Digger", stats: "1600 HP", img: "<div className="relative">
-  <img 
-    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
-    alt="A thrilling monster truck event with vibrant energy and roaring audience."
-    width="2148"
-    height="3007"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
-    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
-      Photo by James Mirakian on Pexels
-    </a>
-  </div>
-</div>" },
-  { name: "Max-D", stats: "1450 HP", img: "<div className="relative">
-  <img 
-    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
-    alt="A thrilling monster truck event with vibrant energy and roaring audience."
-    width="2148"
-    height="3007"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
-    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
-      Photo by James Mirakian on Pexels
-    </a>
-  </div>
-</div>" },
-  { name: "El Toro", stats: "1550 HP", img: "<div className="relative">
-  <img 
-    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
-    alt="A thrilling monster truck event with vibrant energy and roaring audience."
-    width="2148"
-    height="3007"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
-    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
-      Photo by James Mirakian on Pexels
-    </a>
-  </div>
-</div>" },
+  { name: "Bone Crusher", stats: "1500 HP", img: "https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" },
+  { name: "Grave Digger", stats: "1600 HP", img: "https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" },
+  { name: "Max-D", stats: "1450 HP", img: "https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" },
+  { name: "El Toro", stats: "1550 HP", img: "https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" },
 ];
 
 export const TruckLineup = () => {

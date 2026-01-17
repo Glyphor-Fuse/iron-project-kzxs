@@ -16,20 +16,7 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/50 to-transparent z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-carbon via-transparent to-carbon/40 z-10" />
         <img 
-          src="<div className="relative">
-  <img 
-    src="https://images.pexels.com/photos/29176531/pexels-photo-29176531.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" 
-    alt="A monster truck performs a thrilling jump in a packed indoor stadium during a live event."
-    width="4590"
-    height="3060"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
-    <a href="https://www.pexels.com/photo/exciting-monster-truck-jump-at-indoor-arena-29176531/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
-      Photo by James Mirakian on Pexels
-    </a>
-  </div>
-</div>" 
+          src="https://images.pexels.com/photos/29176531/pexels-photo-29176531.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" 
           alt="Monster Truck Jump" 
           className="w-full h-full object-cover opacity-80"
         />
