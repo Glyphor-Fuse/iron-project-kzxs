@@ -1,13 +1,24 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Index from './pages/Index';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import { GlyphorBadge } from './utils/GlyphorBadge';
+
 function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black text-white">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-zinc-500">
-          Glyphor Fuse Skeleton
-        </h1>
-        <p className="mt-2 text-sm text-zinc-700">Waiting for generation...</p>
+    <Router>
+      <div className="relative min-h-screen bg-carbon font-ui overflow-x-hidden">
+        {/* Global Noise Overlay */}
+        <div className="fixed inset-0 pointer-events-none z-50 mix-blend-overlay bg-noise opacity-40"></div>
+        
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Index />} />
+        </Routes>
+        <Footer />
+        <GlyphorBadge />
       </div>
-    </div>
+    </Router>
   );
 }
 

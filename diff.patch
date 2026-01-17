@@ -1,0 +1,791 @@
+diff --git a/index.html b/index.html
+index 59f1d53..ce4caef 100644
+--- a/index.html
++++ b/index.html
+@@ -1,5 +1,20 @@
+-<head>
+-  <meta charset="UTF-8" />
+-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-  <title>Glyphor Fuse Project</title>
+-</head>
++<!DOCTYPE html>
++<html lang="en">
++  <head>
++    <meta charset="UTF-8" />
++    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>GRAVITY BREAKERS | The World's Loudest Event</title>
++    <meta name="description" content="Witness the chaos. Monster trucks, freestyle motocross, and total destruction. Secure your tickets for the mayhem." />
++    <meta name="theme-color" content="#D9F99D" />
++    
++    <!-- Google Fonts: Anton (Headers) & Rajdhani (UI/Body) -->
++    <link rel="preconnect" href="https://fonts.googleapis.com">
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
++  </head>
++  <body class="bg-stone-950 text-stone-100 antialiased selection:bg-lime-400 selection:text-black">
++    <div id="root"></div>
++    <script type="module" src="/src/main.tsx"></script>
++  </body>
++</html>
+\ No newline at end of file
+diff --git a/src/App.tsx b/src/App.tsx
+index 2aebe29..24ac256 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,14 +1,25 @@
++import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
++import Index from './pages/Index';
++import { Navbar } from './components/Navbar';
++import { Footer } from './components/Footer';
++import { GlyphorBadge } from './utils/GlyphorBadge';
++
+ function App() {
+   return (
+-    <div className="flex min-h-screen items-center justify-center bg-black text-white">
+-      <div className="text-center">
+-        <h1 className="text-2xl font-bold tracking-tight text-zinc-500">
+-          Glyphor Fuse Skeleton
+-        </h1>
+-        <p className="mt-2 text-sm text-zinc-700">Waiting for generation...</p>
++    <Router>
++      <div className="relative min-h-screen bg-carbon font-ui overflow-x-hidden">
++        {/* Global Noise Overlay */}
++        <div className="fixed inset-0 pointer-events-none z-50 mix-blend-overlay bg-noise opacity-40"></div>
++        
++        <Navbar />
++        <Routes>
++          <Route path="/" element={<Index />} />
++        </Routes>
++        <Footer />
++        <GlyphorBadge />
+       </div>
+-    </div>
++    </Router>
+   );
+ }
+ 
+-export default App;
++export default App;
+\ No newline at end of file
+diff --git a/src/components/Footer.tsx b/src/components/Footer.tsx
+new file mode 100644
+index 0000000..7c1fd18
+--- /dev/null
++++ b/src/components/Footer.tsx
+@@ -0,0 +1,65 @@
++import { motion } from 'framer-motion';
++
++export const Footer = () => {
++  return (
++    <footer className="bg-black text-white pt-24 pb-12 px-6 border-t border-stone-800">
++      <div className="max-w-7xl mx-auto">
++        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
++          <div>
++            <h2 className="font-display text-6xl md:text-[10rem] leading-[0.8] uppercase text-stone-800 mb-8 select-none">
++              Gravity<br/>Breakers
++            </h2>
++          </div>
++          <div className="flex flex-col justify-end">
++            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
++              {[
++                { title: "Event", links: ["Tickets", "Schedule", "Arena Map", "Accessibility"] },
++                { title: "Drivers", links: ["Standings", "Profiles", "Hall of Fame", "Apply to Race"] },
++                { title: "Connect", links: ["Instagram", "YouTube", "TikTok", "Newsletter"] },
++              ].map((col, i) => (
++                <div key={i}>
++                  <h4 className="font-bold uppercase text-acid mb-4 tracking-widest text-xs">{col.title}</h4>
++                  <ul className="space-y-2">
++                    {col.links.map((link) => (
++                      <li key={link}>
++                        <a href="#" className="text-stone-400 hover:text-white transition-colors text-sm uppercase font-medium">
++                          {link}
++                        </a>
++                      </li>
++                    ))}
++                  </ul>
++                </div>
++              ))}
++            </div>
++            
++            <div className="bg-stone-900 p-8 rounded-sm">
++              <h3 className="font-display text-2xl uppercase mb-4">Join the Pit Crew</h3>
++              <div className="flex gap-2">
++                <input 
++                  type="email" 
++                  placeholder="ENTER EMAIL" 
++                  className="bg-black border border-stone-700 text-white px-4 py-3 w-full font-mono text-sm placeholder:text-stone-600 focus:outline-none focus:border-acid"
++                />
++                <button className="bg-acid text-black px-6 font-bold uppercase hover:bg-white transition-colors">
++                  Join
++                </button>
++              </div>
++            </div>
++          </div>
++        </div>
++
++        <div className="flex flex-col md:flex-row justify-between items-end border-t border-stone-800 pt-8 gap-4">
++          <p className="text-stone-600 text-xs uppercase tracking-widest">
++            © 2024 Gravity Breakers Inc. All Rights Reserved.
++          </p>
++          <div className="flex gap-4">
++            {/* Fake Sponsors */}
++            <div className="h-8 w-24 bg-stone-800/50" />
++            <div className="h-8 w-24 bg-stone-800/50" />
++            <div className="h-8 w-24 bg-stone-800/50" />
++          </div>
++        </div>
++      </div>
++    </footer>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/Hero.tsx b/src/components/Hero.tsx
+new file mode 100644
+index 0000000..b14fba1
+--- /dev/null
++++ b/src/components/Hero.tsx
+@@ -0,0 +1,97 @@
++import { motion, useScroll, useTransform } from 'framer-motion';
++import { ArrowRight } from 'lucide-react';
++
++export const Hero = () => {
++  const { scrollY } = useScroll();
++  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
++  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
++
++  return (
++    <section className="relative h-[110vh] w-full overflow-hidden flex items-center justify-center bg-carbon">
++      {/* Background Video/Image */}
++      <motion.div 
++        style={{ y: y1 }}
++        className="absolute inset-0 w-full h-full"
++      >
++        <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/50 to-transparent z-10" />
++        <div className="absolute inset-0 bg-gradient-to-r from-carbon via-transparent to-carbon/40 z-10" />
++        <img 
++          src="<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/29176531/pexels-photo-29176531.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" 
++    alt="A monster truck performs a thrilling jump in a packed indoor stadium during a live event."
++    width="4590"
++    height="3060"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/exciting-monster-truck-jump-at-indoor-arena-29176531/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by James Mirakian on Pexels
++    </a>
++  </div>
++</div>" 
++          alt="Monster Truck Jump" 
++          className="w-full h-full object-cover opacity-80"
++        />
++      </motion.div>
++
++      {/* Content */}
++      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 pt-20">
++        <motion.div 
++          initial={{ opacity: 0, y: 100 }}
++          animate={{ opacity: 1, y: 0 }}
++          transition={{ duration: 1, ease: "easeOut" }}
++          className="flex flex-col items-start"
++        >
++          <div className="flex items-center gap-4 mb-4">
++            <span className="px-3 py-1 border border-acid text-acid text-xs font-bold tracking-widest uppercase bg-acid/10 backdrop-blur-sm">
++              World Tour 2024
++            </span>
++            <span className="text-stone-400 text-sm font-bold tracking-widest uppercase">
++              Oct 24-26 • Detroit, MI
++            </span>
++          </div>
++
++          <h1 className="font-display text-[14vw] leading-[0.8] text-white uppercase mix-blend-overlay opacity-50 select-none pointer-events-none">
++            Total
++          </h1>
++          <motion.h1 
++            style={{ y: y2 }}
++            className="font-display text-[14vw] leading-[0.8] text-acid uppercase mt-[-4vw] relative"
++          >
++            Chaos
++            <span className="absolute -top-10 -right-20 text-xl font-ui font-normal text-white tracking-normal w-48 hidden md:block">
++              // WARNING: Extreme noise levels. Ear protection required.
++            </span>
++          </motion.h1>
++
++          <div className="mt-12 flex flex-col md:flex-row gap-6 items-start md:items-center">
++            <motion.button
++              whileHover={{ scale: 1.05, backgroundColor: "#ccff00", color: "#000" }}
++              whileTap={{ scale: 0.95 }}
++              className="group relative px-10 py-5 bg-white text-black font-display text-2xl uppercase tracking-wide overflow-hidden clip-tag transition-colors"
++            >
++              <span className="relative z-10 flex items-center gap-3">
++                Secure Seats <ArrowRight className="w-6 h-6" />
++              </span>
++            </motion.button>
++            
++            <p className="max-w-xs text-stone-400 text-sm leading-relaxed border-l-2 border-stone-700 pl-4">
++              The world's most destructive motorsport event returns. Witness gravity-defying stunts and raw horsepower.
++            </p>
++          </div>
++        </motion.div>
++      </div>
++
++      {/* Scroll Indicator */}
++      <motion.div 
++        animate={{ y: [0, 10, 0] }}
++        transition={{ repeat: Infinity, duration: 2 }}
++        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 flex flex-col items-center gap-2"
++      >
++        <span className="text-[10px] uppercase tracking-[0.3em] rotate-90 origin-left translate-y-8 translate-x-3">Scroll</span>
++        <div className="w-[1px] h-24 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
++      </motion.div>
++    </section>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/Navbar.tsx b/src/components/Navbar.tsx
+new file mode 100644
+index 0000000..c1aaf01
+--- /dev/null
++++ b/src/components/Navbar.tsx
+@@ -0,0 +1,83 @@
++import { useState } from 'react';
++import { motion, AnimatePresence } from 'framer-motion';
++import { Menu, X, Ticket } from 'lucide-react';
++
++export const Navbar = () => {
++  const [isOpen, setIsOpen] = useState(false);
++
++  return (
++    <>
++      <motion.nav 
++        initial={{ y: -100 }}
++        animate={{ y: 0 }}
++        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
++        className="fixed top-0 left-0 right-0 z-40 flex justify-between items-center px-6 py-6 md:px-12 mix-blend-difference text-white"
++      >
++        <div className="flex items-center gap-2">
++          <div className="w-8 h-8 bg-acid rotate-45" />
++          <span className="font-display text-2xl tracking-tighter uppercase">Gravity<br/><span className="text-acid">Breakers</span></span>
++        </div>
++
++        <div className="hidden md:flex items-center gap-8 font-bold tracking-widest uppercase text-sm">
++          {['Schedule', 'The Fleet', 'Arena', 'Partners'].map((item) => (
++            <a key={item} href="#" className="hover:text-acid transition-colors">{item}</a>
++          ))}
++        </div>
++
++        <div className="flex items-center gap-4">
++          <button className="hidden md:flex items-center gap-2 bg-white text-black px-6 py-3 font-bold uppercase tracking-wide hover:bg-acid transition-colors clip-tag">
++            <Ticket size={18} />
++            Get Passes
++          </button>
++          
++          <button 
++            onClick={() => setIsOpen(true)}
++            className="md:hidden p-2 hover:text-acid transition-colors"
++          >
++            <Menu size={32} />
++          </button>
++        </div>
++      </motion.nav>
++
++      {/* Mobile Menu Overlay */}
++      <AnimatePresence>
++        {isOpen && (
++          <motion.div
++            initial={{ x: '100%' }}
++            animate={{ x: 0 }}
++            exit={{ x: '100%' }}
++            transition={{ type: "tween", duration: 0.4 }}
++            className="fixed inset-0 z-50 bg-acid flex flex-col p-8"
++          >
++            <div className="flex justify-end mb-12">
++              <button onClick={() => setIsOpen(false)} className="p-2 text-black">
++                <X size={32} />
++              </button>
++            </div>
++            
++            <div className="flex flex-col gap-6">
++              {['Schedule', 'The Fleet', 'Arena', 'Partners'].map((item, i) => (
++                <motion.a
++                  key={item}
++                  href="#"
++                  initial={{ opacity: 0, x: 50 }}
++                  animate={{ opacity: 1, x: 0 }}
++                  transition={{ delay: i * 0.1 }}
++                  className="font-display text-6xl text-black uppercase hover:text-white transition-colors"
++                >
++                  {item}
++                </motion.a>
++              ))}
++            </div>
++            
++            <div className="mt-auto">
++              <button className="w-full py-6 bg-black text-white font-display text-2xl uppercase hover:bg-white hover:text-black transition-colors">
++                Buy Tickets Now
++              </button>
++            </div>
++          </motion.div>
++        )}
++      </AnimatePresence>
++    </>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/Pricing.tsx b/src/components/Pricing.tsx
+new file mode 100644
+index 0000000..107da87
+--- /dev/null
++++ b/src/components/Pricing.tsx
+@@ -0,0 +1,72 @@
++import { motion } from 'framer-motion';
++import { Check } from 'lucide-react';
++
++const tiers = [
++  { 
++    name: "Rookie Pass", 
++    price: "$45", 
++    color: "bg-white", 
++    text: "text-black",
++    features: ["General Admission", "Upper Bowl Seating", "Event Sticker"] 
++  },
++  { 
++    name: "Adrenaline", 
++    price: "$89", 
++    color: "bg-acid", 
++    text: "text-black",
++    features: ["Lower Bowl Seating", "Pit Party Access", "Official T-Shirt", "Fast Lane Entry"] 
++  },
++  { 
++    name: "Total Chaos", 
++    price: "$199", 
++    color: "bg-carbon border border-stone-800", 
++    text: "text-white",
++    features: ["Front Row Suites", "Driver Meet & Greet", "Track Walk", "All-Inclusive F&B", "VIP Parking"] 
++  },
++];
++
++export const Pricing = () => {
++  return (
++    <section className="bg-stone-900 py-32 px-6 overflow-hidden">
++      <div className="max-w-7xl mx-auto">
++        <div className="text-center mb-20">
++          <h2 className="font-display text-6xl md:text-8xl text-white uppercase mb-4">Secure Your <span className="text-acid">Seat</span></h2>
++          <p className="text-stone-400 font-mono uppercase tracking-widest">Tickets selling fast. Don't miss the mayhem.</p>
++        </div>
++
++        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
++          {tiers.map((tier, i) => (
++            <motion.div
++              key={i}
++              whileHover={{ y: -20 }}
++              className={`relative p-8 md:p-12 ${tier.color} ${tier.text} clip-slant h-full flex flex-col`}
++            >
++              {i === 1 && (
++                <div className="absolute top-0 right-0 bg-black text-white text-xs font-bold px-3 py-1 uppercase tracking-widest">
++                  Best Value
++                </div>
++              )}
++              
++              <div className="mb-8">
++                <h3 className="font-display text-3xl uppercase mb-2">{tier.name}</h3>
++                <div className="text-5xl font-bold font-ui">{tier.price}</div>
++              </div>
++
++              <ul className="space-y-4 mb-12 flex-grow">
++                {tier.features.map((feat, j) => (
++                  <li key={j} className="flex items-center gap-3 font-medium text-sm uppercase tracking-wide opacity-80">
++                    <Check size={16} strokeWidth={3} /> {feat}
++                  </li>
++                ))}
++              </ul>
++
++              <button className={`w-full py-4 font-display text-xl uppercase tracking-wide border-2 border-current hover:bg-black hover:text-white hover:border-black transition-colors`}>
++                Select Pass
++              </button>
++            </motion.div>
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/Schedule.tsx b/src/components/Schedule.tsx
+new file mode 100644
+index 0000000..0edcfa7
+--- /dev/null
++++ b/src/components/Schedule.tsx
+@@ -0,0 +1,88 @@
++import { motion } from 'framer-motion';
++import { MapPin, Calendar, Clock } from 'lucide-react';
++
++const events = [
++  { day: "FRI", date: "OCT 24", title: "Qualifying & Pit Party", time: "18:00 - 22:00", type: "Access Pass" },
++  { day: "SAT", date: "OCT 25", title: "Main Event: Freestyle", time: "19:00 - 23:00", type: "Standard" },
++  { day: "SUN", date: "OCT 26", title: "Championship Finals", time: "14:00 - 18:00", type: "Premium" },
++];
++
++export const Schedule = () => {
++  return (
++    <section className="bg-acid text-black py-24 relative overflow-hidden">
++      {/* Background Texture */}
++      <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
++         <img src="<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/14512047/pexels-photo-14512047.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" 
++    alt="A rugged blue Jeep tackling a challenging off-road pathway in the wilderness."
++    width="4000"
++    height="4000"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/off-road-vehicle-on-the-rough-road-14512047/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by Wallace Silva on Pexels
++    </a>
++  </div>
++</div>" className="w-full h-full object-cover mix-blend-multiply" alt="Texture" />
++      </div>
++
++      <div className="max-w-7xl mx-auto px-6">
++        <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-black/20 pb-8">
++          <div>
++            <h2 className="font-display text-7xl md:text-9xl uppercase leading-none">The<br/>Circuit</h2>
++          </div>
++          <div className="flex flex-col gap-2 text-right">
++            <div className="flex items-center gap-2 justify-end font-bold uppercase tracking-widest">
++              <MapPin size={18} /> Ford Field, Detroit
++            </div>
++            <p className="max-w-md text-sm font-medium opacity-70">
++              Three days of high-octane competition. Access the pit party to meet the drivers and see the machines up close.
++            </p>
++          </div>
++        </div>
++
++        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border-t border-l border-black/10">
++          {events.map((event, i) => (
++            <motion.div
++              key={i}
++              initial={{ opacity: 0, y: 20 }}
++              whileInView={{ opacity: 1, y: 0 }}
++              viewport={{ once: true }}
++              transition={{ delay: i * 0.1 }}
++              whileHover={{ backgroundColor: '#000', color: '#ccff00' }}
++              className="group relative p-8 md:p-12 border-r border-b border-black/10 transition-colors duration-300 min-h-[400px] flex flex-col justify-between"
++            >
++              <div className="flex justify-between items-start">
++                <span className="text-6xl font-display opacity-30 group-hover:opacity-100 transition-opacity">{event.day}</span>
++                <span className="text-xs font-bold border border-current px-2 py-1 uppercase">{event.type}</span>
++              </div>
++              
++              <div>
++                <div className="flex items-center gap-2 text-sm font-bold uppercase mb-2 opacity-60">
++                   <Calendar size={14} /> {event.date}
++                   <span className="mx-2">•</span>
++                   <Clock size={14} /> {event.time}
++                </div>
++                <h3 className="text-3xl font-display uppercase leading-tight group-hover:translate-x-2 transition-transform duration-300">
++                  {event.title}
++                </h3>
++              </div>
++
++              <div className="absolute bottom-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
++                <ArrowIcon />
++              </div>
++            </motion.div>
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++};
++
++const ArrowIcon = () => (
++  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
++    <path d="M10 30L30 10M30 10H10M30 10V30" stroke="currentColor" strokeWidth="2"/>
++  </svg>
++);
+\ No newline at end of file
+diff --git a/src/components/TruckLineup.tsx b/src/components/TruckLineup.tsx
+new file mode 100644
+index 0000000..5cde222
+--- /dev/null
++++ b/src/components/TruckLineup.tsx
+@@ -0,0 +1,110 @@
++import { motion } from 'framer-motion';
++
++const trucks = [
++  { name: "Bone Crusher", stats: "1500 HP", img: "<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
++    alt="A thrilling monster truck event with vibrant energy and roaring audience."
++    width="2148"
++    height="3007"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by James Mirakian on Pexels
++    </a>
++  </div>
++</div>" },
++  { name: "Grave Digger", stats: "1600 HP", img: "<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
++    alt="A thrilling monster truck event with vibrant energy and roaring audience."
++    width="2148"
++    height="3007"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by James Mirakian on Pexels
++    </a>
++  </div>
++</div>" },
++  { name: "Max-D", stats: "1450 HP", img: "<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
++    alt="A thrilling monster truck event with vibrant energy and roaring audience."
++    width="2148"
++    height="3007"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by James Mirakian on Pexels
++    </a>
++  </div>
++</div>" },
++  { name: "El Toro", stats: "1550 HP", img: "<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/29176532/pexels-photo-29176532.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800" 
++    alt="A thrilling monster truck event with vibrant energy and roaring audience."
++    width="2148"
++    height="3007"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/exciting-monster-truck-event-with-crowd-29176532/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by James Mirakian on Pexels
++    </a>
++  </div>
++</div>" },
++];
++
++export const TruckLineup = () => {
++  return (
++    <section className="bg-concrete py-32 px-6">
++      <div className="max-w-[1800px] mx-auto">
++        <div className="mb-16 flex flex-col md:flex-row items-center justify-between gap-8">
++          <h2 className="font-display text-5xl md:text-8xl text-white uppercase">
++            The <span className="text-stroke">Beasts</span>
++          </h2>
++          <p className="text-stone-400 max-w-md text-right font-mono text-xs uppercase tracking-wider">
++            Specially engineered for destruction. <br/>Methanol-fueled 540CI Engines.
++          </p>
++        </div>
++
++        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
++          {trucks.map((truck, i) => (
++            <motion.div
++              key={i}
++              initial={{ opacity: 0, scale: 0.9 }}
++              whileInView={{ opacity: 1, scale: 1 }}
++              viewport={{ once: true }}
++              transition={{ delay: i * 0.1 }}
++              className="group relative aspect-[3/4] overflow-hidden bg-black cursor-pointer"
++            >
++              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
++              
++              <img 
++                src={truck.img} 
++                alt={truck.name} 
++                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1 grayscale group-hover:grayscale-0"
++              />
++              
++              <div className="absolute bottom-0 left-0 w-full p-6 z-20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
++                <p className="text-acid font-mono text-xs mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
++                  {truck.stats} // CLASS A
++                </p>
++                <h3 className="font-display text-4xl text-white uppercase italic">
++                  {truck.name}
++                </h3>
++              </div>
++
++              {/* Glitch Overlay on Hover */}
++              <div className="absolute inset-0 bg-acid/20 mix-blend-color-dodge opacity-0 group-hover:opacity-100 transition-opacity duration-100 pointer-events-none" />
++            </motion.div>
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++};
+\ No newline at end of file
+diff --git a/src/index.css b/src/index.css
+index f1d8c73..80174db 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -1 +1,50 @@
+ @import "tailwindcss";
++
++@theme {
++  --font-display: 'Anton', sans-serif;
++  --font-ui: 'Rajdhani', sans-serif;
++  
++  --color-acid: #ccff00;
++  --color-danger: #ff2a2a;
++  --color-concrete: #292524;
++  --color-carbon: #0c0a09;
++}
++
++@layer utilities {
++  .font-display {
++    font-family: var(--font-display);
++  }
++  .font-ui {
++    font-family: var(--font-ui);
++  }
++  
++  /* Custom Scrollbar */
++  ::-webkit-scrollbar {
++    width: 8px;
++    background: #1c1917;
++  }
++  ::-webkit-scrollbar-thumb {
++    background: #44403c;
++  }
++  ::-webkit-scrollbar-thumb:hover {
++    background: #ccff00;
++  }
++
++  /* Grunge Texture Overlay */
++  .bg-noise {
++    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
++  }
++
++  .text-stroke {
++    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
++    color: transparent;
++  }
++  
++  .clip-slant {
++    clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
++  }
++  
++  .clip-tag {
++    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
++  }
++}
+\ No newline at end of file
+diff --git a/src/pages/Index.tsx b/src/pages/Index.tsx
+new file mode 100644
+index 0000000..105a4a0
+--- /dev/null
++++ b/src/pages/Index.tsx
+@@ -0,0 +1,71 @@
++import { Hero } from '../components/Hero';
++import { Schedule } from '../components/Schedule';
++import { TruckLineup } from '../components/TruckLineup';
++import { Pricing } from '../components/Pricing';
++import { motion } from 'framer-motion';
++
++const Marquee = () => (
++  <div className="bg-acid overflow-hidden py-4 border-y border-black">
++    <motion.div 
++      animate={{ x: "-50%" }}
++      transition={{ ease: "linear", duration: 10, repeat: Infinity }}
++      className="flex whitespace-nowrap"
++    >
++      {[...Array(10)].map((_, i) => (
++        <span key={i} className="text-4xl font-display uppercase text-black mx-8 flex items-center gap-4">
++          Total Destruction <span className="w-4 h-4 bg-black rotate-45" />
++        </span>
++      ))}
++    </motion.div>
++  </div>
++);
++
++const VideoTeaser = () => (
++  <section className="h-[60vh] md:h-[80vh] w-full relative group overflow-hidden bg-black">
++    <img 
++      src="<div className="relative">
++  <img 
++    src="https://images.pexels.com/photos/3892895/pexels-photo-3892895.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200" 
++    alt="A lively crowd gathers at a football stadium during an outdoor event, showcasing spectator excitement."
++    width="6960"
++    height="4640"
++    className="w-full h-full object-cover"
++  />
++  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-2">
++    <a href="https://www.pexels.com/photo/people-on-a-stadium-3892895/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-slate-300 transition-colors">
++      Photo by Luis Quintero on Pexels
++    </a>
++  </div>
++</div>" 
++      alt="Crowd" 
++      className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-1000"
++    />
++    <div className="absolute inset-0 flex items-center justify-center">
++        <motion.button 
++            whileHover={{ scale: 1.1 }}
++            className="w-24 h-24 rounded-full bg-acid/90 backdrop-blur flex items-center justify-center pl-1 group-hover:shadow-[0_0_50px_rgba(204,255,0,0.4)] transition-shadow"
++        >
++            <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-black border-b-[10px] border-b-transparent ml-1" />
++        </motion.button>
++    </div>
++    <div className="absolute bottom-10 left-10">
++        <h3 className="text-white font-display text-4xl uppercase">Watch Highlights</h3>
++        <p className="text-stone-400 font-mono text-sm">2023 World Finals • Las Vegas</p>
++    </div>
++  </section>
++);
++
++const Index = () => {
++  return (
++    <main>
++      <Hero />
++      <Marquee />
++      <Schedule />
++      <TruckLineup />
++      <VideoTeaser />
++      <Pricing />
++    </main>
++  );
++};
++
++export default Index;
+\ No newline at end of file
+diff --git a/src/utils/GlyphorBadge.tsx b/src/utils/GlyphorBadge.tsx
+new file mode 100644
+index 0000000..905e296
+--- /dev/null
++++ b/src/utils/GlyphorBadge.tsx
+@@ -0,0 +1,23 @@
++import { motion } from 'framer-motion';
++
++export const GlyphorBadge = () => {
++  return (
++    <motion.div
++      initial={{ opacity: 0 }}
++      animate={{ opacity: 1 }}
++      className="fixed bottom-6 right-6 z-50 mix-blend-difference"
++    >
++      <a
++        href="https://glyphor.com"
++        target="_blank"
++        rel="noopener noreferrer"
++        className="group flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-white/20 transition-all"
++      >
++        <div className="w-2 h-2 rounded-full bg-acid animate-pulse" />
++        <span className="text-xs font-medium text-white tracking-widest uppercase">
++          Made with Glyphor
++        </span>
++      </a>
++    </motion.div>
++  );
++};
+\ No newline at end of file
